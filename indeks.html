@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swiper Card Portrait</title>
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+<style>
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #fffce0, #ffe5f3);
+    overflow-x: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-attachment: fixed;
+
+}
+
+/* =====================================================
+   PAGE LAYOUT
+===================================================== */
+.page-center {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* ⬅️ bikin isi beneran di tengah layar */
+    align-items: center;
+    gap: 20px;
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+.page-title {
+    position: sticky;
+    top: 16px;
+    z-index: 10;
+    margin-bottom: 24px;
+
+    width: 100%;
+    text-align: center;
+    align-self: center;
+
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 1px;
+
+    background: linear-gradient(90deg, #ff8ccf, #7ac8ff, #ffda7a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow: 0 3px 8px rgba(0,0,0,.18);
+}
+
+/* =====================================================
+   SWIPER
+===================================================== */
+.swiper-container {
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 30px;
+}
+
+.swiper-wrapper {
+    min-height: 340px;
+}
+
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+.card {
+    width: 295px;
+    height: 300px;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.swiper-slide-active .card {
+    transform: scale(1.08);
+    box-shadow: 0 18px 45px rgba(0,0,0,.25);
+}
+
+/* soft glow */
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top,
+        rgba(255,255,255,.35),
+        transparent 60%);
+    pointer-events: none;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #ffffff;
+}
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #209bff;
+}
+
+/* =====================================================
+   BACKGROUND DECOR
+===================================================== */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: .6;
+    z-index: -1;
+}
+
+body::before {
+    background: #ffb6c1;
+    top: -80px;
+    left: -80px;
+}
+
+body::after {
+    background: #add8e6;
+    bottom: -80px;
+    right: -80px;
+}
+
+/* cute floating decor */
+.bg-decor {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+}
+
+.star {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+        50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+    );
+    animation: sparkle 4s ease-in-out infinite;
+}
+
+.star.small {
+    width: 16px;
+    height: 16px;
+    animation-duration: 3s;
+}
+
+.moon {
+    position: absolute;
+    font-size: 42px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 5s ease-in-out infinite;
+}
+
+.shooting-star {
+    position: absolute;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, #fff, transparent);
+    animation: shoot 6s linear infinite;
+}
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+@keyframes sparkle {
+    0%,100% { transform: scale(1); opacity: .7; }
+    50% { transform: scale(1.5); opacity: 1; }
+}
+
+@keyframes float {
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes shoot {
+    0% { transform: translateX(-100px); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateX(400px) translateY(100px); opacity: 0; }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    .swiper-container {
+        height: 360px;
+    }
+
+    .card {
+        width: 220px;
+        height: 280px;
+    }
+
+    .swiper-button-prev { left: 5px; }
+    .swiper-button-next { right: 5px; }
+}
+@media (max-width: 480px) {
+    .swiper-wrapper {
+        min-height: 300px;
+    }
+}
+
+
+/* =====================================================
+   AUDIO
+===================================================== */
+#background-music {
+    display: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Decorative Elements -->
+<div class="bg-decor">
+    <span class="star" style="top:10%; left:8%; background:#7ac247"></span>
+    <span class="star" style="top:20%; right:10%; background:#f48798"></span>
+    <span class="star small" style="top:35%; left:20%; background:#fbe83a"></span>
+    <span class="moon" style="top:8%; right:35%">🌙</span>
+    <span class="heart" style="top:45%; left:5%">💖</span>
+    <span class="shooting-star" style="top:15%; left:0"></span>
+</div>
+
+<audio id="background-music" loop>
+    <source src="213950659.mp3" type="audio/mpeg">
+</audio>
+
+<div class="page-center">
+
+    <h1 class="page-title">𝐒𝓹𝓮𝓬𝓲𝓪𝓵 𝐅𝓻𝓸𝓶 𝐀𝓬𝓱𝓪 !</h1>
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><div class="card"><img src="1.jpg"></div></div>
+            <div class="swiper-slide"><div class="card"><img src="2.jpg"></div></div>
+            <div class="swiper-slide"><div class="card"><img src="3.jpg"></div></div>
+            <div class="swiper-slide"><div class="card"><img src="4.jpg"></div></div>
+            <div class="swiper-slide"><div class="card"><img src="5.jpg"></div></div>
+            <div class="swiper-slide"><div class="card"><img src="6.jpg"></div></div>
+            <div class="swiper-slide"><div class="card"><img src="7.jpg"></div></div>
+        </div>
+
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+
+</div>
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+const audio = document.getElementById('background-music');
+document.body.addEventListener('click', () => {
+    audio.play().catch(() => {});
+}, { once: true });
+
+new Swiper('.swiper-container', {
+    effect: 'coverflow',
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    loop: true,
+    speed: 800,
+    coverflowEffect: {
+        rotate: 18,
+        depth: 140,
+        slideShadows: false,
+    },
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+});
+</script>
+
+</body>
+</html>
